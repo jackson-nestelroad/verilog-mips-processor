@@ -20,11 +20,16 @@ module Processor #(
     input [31:0] nextInstruction,       // Next instruction to execute
     output [31:0] syscallOut            // Exposed output on syscall
 );
+
+    // Use built-in gate functions
+    
     // Reset the processor
-    wire reset = operation[1] & operation[0];
+    wire reset;
+    and(reset, operation[1], operation[0]);
 
     // Execute next instruction
-    wire execute = operation[1] ^ operation[0];
+    wire execute;
+    xor(execute, operation[1], operation[0]);
 
     // Enable the clock forever
     wire clkEnable = 1;
